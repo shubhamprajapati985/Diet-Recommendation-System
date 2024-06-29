@@ -1,0 +1,37 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Search Foods</title>
+    <link rel="stylesheet" href="../css/styles.css">
+</head>
+<body>
+    <h2>Search Foods</h2>
+    <form action="../php/search.php" method="get">
+        <label for="query">Search:</label>
+        <input type="text" name="query" required>
+        <button type="submit">Search</button>
+    </form>
+    <div id="results">
+        <!-- Search results will be loaded here -->
+    </div>
+    <script>
+        document.addEventListener('DOMContentLoaded', function() {
+            const urlParams = new URLSearchParams(window.location.search);
+            const query = urlParams.get('query');
+            if (query) {
+                fetch(`../php/search.php?query=${query}`)
+                    .then(response => response.json())
+                    .then(data => {
+                        const resultsDiv = document.getElementById('results');
+                        data.forEach(food => {
+                            const foodDiv = document.createElement('div');
+                            foodDiv.innerHTML = `<h3>${food.name}</h3><p>Calories: ${food.calories}</p>`;
+                            resultsDiv.appendChild(foodDiv);
+                        });
+                    });
+            }
+        });
+    </script>
+</body>
+</html>

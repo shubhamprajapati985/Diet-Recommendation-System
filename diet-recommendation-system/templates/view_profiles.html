@@ -1,0 +1,51 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>User Profiles</title>
+    <link rel="stylesheet" href="../css/styles.css">
+</head>
+<body>
+    <h2>User Profiles</h2>
+    <table id="profiles-table">
+        <thead>
+            <tr>
+                <th>User ID</th>
+                <th>Age</th>
+                <th>Gender</th>
+                <th>Weight</th>
+                <th>Height</th>
+                <th>Dietary Preferences</th>
+                <th>Allergies</th>
+                <th>Health Goals</th>
+            </tr>
+        </thead>
+        <tbody>
+            <!-- Profiles will be loaded here -->
+        </tbody>
+    </table>
+    <script>
+        document.addEventListener('DOMContentLoaded', function() {
+            fetch('../php/get_profiles.php')
+                .then(response => response.json())
+                .then(data => {
+                    const profilesTableBody = document.querySelector('#profiles-table tbody');
+                    data.forEach(profile => {
+                        const row = document.createElement('tr');
+                        row.innerHTML = `
+                            <td>${profile.user_id}</td>
+                            <td>${profile.age}</td>
+                            <td>${profile.gender}</td>
+                            <td>${profile.weight}</td>
+                            <td>${profile.height}</td>
+                            <td>${profile.dietary_preferences}</td>
+                            <td>${profile.allergies}</td>
+                            <td>${profile.health_goals}</td>
+                        `;
+                        profilesTableBody.appendChild(row);
+                    });
+                });
+        });
+    </script>
+</body>
+</html>

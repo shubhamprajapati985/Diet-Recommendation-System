@@ -1,0 +1,75 @@
+/* Global styles */
+body {
+    margin: 0;
+    padding: 0;
+    font-family: sans-serif; /* Choose a suitable font family */
+  }
+  
+  /* Header styles */
+  .header {
+    background-color: #343a40; /* Dark blue */
+    color: #fff; /* White */
+    padding: 20px;
+    text-align: center;
+  }
+  
+  .header h1 {
+    font-size: 2em; /* Increase heading size */
+    margin: 0;
+  }
+  
+  /* Main content styles */
+  .main {
+    padding: 20px;
+    display: flex; /* Arrange sections side-by-side */
+    flex-wrap: wrap; /* Allow sections to wrap if needed */
+  }
+  
+  /* User section styles */
+  .user-section,
+  .profile-section {
+    flex: 1 0 50%; /* Set equal width for sections */
+    margin: 10px; /* Add spacing between sections */
+    border: 1px solid #ddd; /* Add a subtle border */
+    border-radius: 5px; /* Add rounded corners */
+    padding: 15px;
+  }
+  
+  .user-section h2,
+  .profile-section h2 {
+    margin: 0 0 15px; /* Add margin for headings */
+  }
+  
+  /* Table styles */
+  table {
+    width: 100%; /* Make tables fill container width */
+    border-collapse: collapse; /* Remove table borders */
+  }
+  
+  th,
+  td {
+    padding: 10px;
+    border: 1px solid #ddd; /* Add table cell borders */
+    text-align: left; /* Left-align table content */
+  }
+  
+  th {
+    background-color: #f2f2f2; /* Light gray background for headers */
+  }
+  
+  /* Optional styling for aesthetic appeal (adjust as needed) */
+  .user-section table tr:nth-child(even) {
+    background-color: #eee; /* Alternate row colors */
+  }
+  
+  .profile-section table tr:nth-child(even) {
+    background-color: #f5f5f5;
+  }
+  
+  .profile-section table tr td:nth-child(1),
+  .profile-section table tr td:nth-child(2),
+  .profile-section table tr td:nth-child(3) {
+    /* Adjust column styling for specific profiles */
+    text-align: center; /* Center-align specific columns */
+  }
+  

@@ -1,0 +1,37 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Meal Plan</title>
+    <link rel="stylesheet" href="../css/styles.css">
+</head>
+<body>
+    <h2>Your Meal Plan</h2>
+    <div id="meal-plan">
+        <!-- Meal Plan will be loaded here -->
+    </div>
+    <script>
+        document.addEventListener('DOMContentLoaded', function() {
+            fetch('../php/meal_plan.php')
+                .then(response => response.json())
+                .then(data => {
+                    const mealPlanDiv = document.getElementById('meal-plan');
+                    data.forEach(meal => {
+                        const mealDiv = document.createElement('div');
+                        mealDiv.innerHTML = `
+                            <h3>${meal.meal_date}</h3>
+                            <p>${meal.meal_details}</p>
+                            <p>Calories: ${meal.calories}</p>
+                            <p>Protein: ${meal.protein}g</p>
+                            <p>Fat: ${meal.fat}g</p>
+                            <p>Carbs: ${meal.carbs}g</p>
+                            <p>Vitamins: ${meal.vitamins}</p>
+                            <p>Minerals: ${meal.minerals}</p>
+                        `;
+                        mealPlanDiv.appendChild(mealDiv);
+                    });
+                });
+        });
+    </script>
+</body>
+</html>

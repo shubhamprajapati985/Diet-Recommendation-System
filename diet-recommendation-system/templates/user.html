@@ -1,0 +1,76 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>User Dashboard</title>
+    <link rel="stylesheet" href="../css/styles.css">
+</head>
+<body>
+    <h1>Welcome, [User]</h1>
+    <nav>
+        <ul>
+            <li><a href="profile.html">Update Profile</a></li>
+            <li><a href="meal_plan.html">View Meal Plan</a></li>
+            <li><a href="search.html">Search Foods</a></li>
+            <li><a href="view_nutrition.html">View Nutrition</a></li>
+        </ul>
+    </nav>
+
+    <section id="profile-section">
+        <h2>Your Profile</h2>
+        <div id="profile-details">
+            <!-- Profile details will be loaded here -->
+        </div>
+    </section>
+
+    <section id="meal-plan-section">
+        <h2>Your Meal Plan</h2>
+        <div id="meal-plan-details">
+            <!-- Meal plan details will be loaded here -->
+        </div>
+    </section>
+
+    <script>
+        document.addEventListener('DOMContentLoaded', function() {
+            // Fetch and display profile details
+            fetch('../php/get_profiles.php')
+                .then(response => response.json())
+                .then(data => {
+                    const userId = <?php echo $_SESSION['user_id']; ?>;
+                    const userProfile = data.find(profile => profile.user_id == userId);
+                    const profileDetailsDiv = document.getElementById('profile-details');
+                    profileDetailsDiv.innerHTML = `
+                        <p>Age: ${userProfile.age}</p>
+                        <p>Gender: ${userProfile.gender}</p>
+                        <p>Weight: ${userProfile.weight}</p>
+                        <p>Height: ${userProfile.height}</p>
+                        <p>Dietary Preferences: ${userProfile.dietary_preferences}</p>
+                        <p>Allergies: ${userProfile.allergies}</p>
+                        <p>Health Goals: ${userProfile.health_goals}</p>
+                    `;
+                });
+
+            // Fetch and display meal plan details
+            fetch('../php/meal_plan.php')
+                .then(response => response.json())
+                .then(data => {
+                    const mealPlanDiv = document.getElementById('meal-plan-details');
+                    data.forEach(meal => {
+                        const mealDiv = document.createElement('div');
+                        mealDiv.innerHTML = `
+                            <h3>${meal.meal_date}</h3>
+                            <p>${meal.meal_details}</p>
+                            <p>Calories: ${meal.calories}</p>
+                            <p>Protein: ${meal.protein}g</p>
+                            <p>Fat: ${meal.fat}g</p>
+                            <p>Carbs: ${meal.carbs}g</p>
+                            <p>Vitamins: ${meal.vitamins}</p>
+                            <p>Minerals: ${meal.minerals}</p>
+                        `;
+                        mealPlanDiv.appendChild(mealDiv);
+                    });
+                });
+        });
+    </script>
+</body>
+</html>

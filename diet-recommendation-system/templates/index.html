@@ -1,0 +1,66 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Search Foods</title>
+    <link rel="stylesheet" href="../css/styles.css">
+</head>
+<body>
+    <h2>Search Foods</h2>
+    <form action="index.html" method="get">
+        <label for="query">Search:</label>
+        <input type="text" name="query" required>
+        <button type="submit">Search</button>
+    </form>
+    <div id="results">
+        <!-- Search results will be loaded here -->
+    </div>
+    <script>
+        document.addEventListener('DOMContentLoaded', function() {
+            const urlParams = new URLSearchParams(window.location.search);
+            const query = urlParams.get('query');
+            if (query) {
+                fetch(`../php/search.php?query=${query}`)
+                    .then(response => response.json())
+                    .then(data => {
+                        const resultsDiv = document.getElementById('results');
+                        if (data.length > 0) {
+                            const table = document.createElement('table');
+                            table.innerHTML = `
+                                <thead>
+                                    <tr>
+                                        <th>Name</th>
+                                        <th>Calories</th>
+                                        <th>Protein</th>
+                                        <th>Fat</th>
+                                        <th>Carbs</th>
+                                        <th>Vitamins</th>
+                                        <th>Minerals</th>
+                                    </tr>
+                                </thead>
+                                <tbody>
+                                </tbody>
+                            `;
+                            data.forEach(food => {
+                                const row = document.createElement('tr');
+                                row.innerHTML = `
+                                    <td>${food.name}</td>
+                                    <td>${food.calories}</td>
+                                    <td>${food.protein}</td>
+                                    <td>${food.fat}</td>
+                                    <td>${food.carbs}</td>
+                                    <td>${food.vitamins}</td>
+                                    <td>${food.minerals}</td>
+                                `;
+                                table.querySelector('tbody').appendChild(row);
+                            });
+                            resultsDiv.appendChild(table);
+                        } else {
+                            resultsDiv.innerHTML = '<p>No results found</p>';
+                        }
+                    });
+            }
+        });
+    </script>
+</body>
+</html>
